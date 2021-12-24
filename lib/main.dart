@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:archive/archive.dart';
+import 'package:archive/archive_io.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Kindacode.com',
+      title: 'fluttercrypto.de',
       home: HomePage(),
     );
   }
@@ -27,8 +29,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final String sourcePasswordList = 'password_list/10-million-password-list-top-100000.txt';
+  final String compressedPasswordList = '10-million-password-list-top-100000.zip';
+
   // This will be displayed on the screen
   String _content = ''; // null safety
+
+  void _zipPasswordFile() async {
+    //final bytes = File(sourcePasswordList).readAsBytesSync();
+    var _dirPath = await _getDirPath();
+    var _zipPath = ('$_dirPath/$compressedPasswordList');
+    var encoder = ZipFileEncoder();
+    encoder.create(_zipPath);
+    encoder.addFile(File(sourcePasswordList));
+    encoder.close();
+    _textController.text = 'file ' + sourcePasswordList + ' zipped';
+  }
+
 
   // Find the Documents path
   Future<String> _getDirPath() async {
@@ -63,12 +81,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kindacode.com'),
+        title: Text('read text file write compressed file'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            ElevatedButton(
+              child: Text('ZIP file'),
+              onPressed: _zipPasswordFile,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+
+
+
             TextField(
               controller: _textController,
               decoration: InputDecoration(labelText: 'Enter your name'),

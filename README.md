@@ -1,8 +1,22 @@
 # read_write_files
 
+# NOT WORKING #
+
+using this file as basis: https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-10000.txt
+
+password_list/10-million-password-list-top-10000.txt
+
+https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-100000.txt
+
+password_list/10-million-password-list-top-100000.txt
+
 https://www.kindacode.com/article/flutter-how-to-read-and-write-text-files/
 
 uses path_provider: ^2.0.5
+
+https://pub.dev/packages/archive
+
+archive: ^3.1.6
 
 A new Flutter project.
 
